@@ -1,0 +1,10 @@
+[flake8]
+extend-ignore = E203
+exclude = 
+  # Do not check things inside git directories (only on work directory)
+  .git,
+  # Do not check cached python things
+  __pycache__
+max-complexity = 10
+max-line-length = 120
+
