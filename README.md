@@ -28,10 +28,18 @@ Load the env file
 source .env
 ```
 
+Run tests
+```
+pytest tests/
+```
+
 Run the application:
 ```
 mlflow server --host 0.0.0.0 & bash docker-entrypoint.sh
 ```
+
+## Important!
+If you will run without docker, remember to change the `MLFLOW_URL` variable on env file to `http://localhost:5000`
 
 ---
 ---

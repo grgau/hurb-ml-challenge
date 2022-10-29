@@ -17,6 +17,7 @@ RUN pip install \
 ENV PATH=/root/.local/bin:$PATH
 
 COPY src ./src
+COPY tests ./tests
 
 EXPOSE 3000
 ENTRYPOINT ["bash", "docker-entrypoint.sh"]
