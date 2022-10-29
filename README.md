@@ -30,7 +30,7 @@ source .env
 
 Run the application:
 ```
-mlflow server --host 0.0.0.0 && bash docker-entrypoint.sh
+mlflow server --host 0.0.0.0 & bash docker-entrypoint.sh
 ```
 
 ---
