@@ -1,43 +1,43 @@
-# Desafio Machine Learning - Platform
+# Machine Learning Challenge - Platform
 
-## Como executar a aplicação
+## How to run the application
 ---
-### Ambiente docker (Aconselhável 😉)
-Dentro do diretório executar:
+### Docker environment (Advisable! 😉)
+Run inside the project directory:
 ```
 docker-compose up
 ```
 
-Serão subidos os serviços de predição servidos por Bentoml com um modelo Catboost já treinado, além de um serviço de MLFlow para acompanhar as métricas registradas do modelo
+The prediction service served by Bentoml will be up with an already trained Catboost model. Also, an MLFlow service will be up to register model's metrics
 
 ---
-### Fora de ambiente docker
-Criar e ativar um ambiente virtual:
+### Without Docker environment
+Create and activate a virtual env:
 ```
 python3.10 -m venv venv
 source venv/bin/activate
 ```
 
-Instalar os requirements
+Install the requirements
 ```
 pip install -r requirements.txt
 ```
 
-Carregar arquivo de variáveis de ambiente
+Load the env file
 ```
 source .env
 ```
 
-Executar a aplicação:
+Run the application:
 ```
 mlflow server --host 0.0.0.0 && bash docker-entrypoint.sh
 ```
 
 ---
 ---
-## Como realizar predições por meio da API
+## How to use the API to get predictions
 
-Após subir o projeto, fica disponibilizado o endpoint POST em `http://localhost:3000/classify`, o body JSON da request tem a seguinte estrutura:
+After the project is running, the endpoint `http://localhost:3000/classify` will be available to POST requests, the JSON body needs to have the following structure:
 
 ```json
 {
@@ -75,7 +75,7 @@ Após subir o projeto, fica disponibilizado o endpoint POST em `http://localhost
 }
 ```
 
-Como por exemplo:
+For example:
 ```json
 {
     "hotel": "Resort Hotel",
@@ -112,7 +112,7 @@ Como por exemplo:
 }
 ```
 
-A resposta do modelo será do tipo
+The model response through the API will be like:
 ```json
 {
 	"will_cancel": false
