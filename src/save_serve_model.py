@@ -1,18 +1,16 @@
 import bentoml
-
-from sklearn import svm
-from sklearn import datasets
+from prepare_data import Preprocess
+from models.catboost_clf import CatBoostClf
 
 def save_serve_model():
-    iris = datasets.load_iris()
-    X, y = iris.data, iris.target
+    X_train, X_test, y_train, y_test = Preprocess.perform()
 
-    clf = svm.SVC(gamma='scale')
-    clf.fit(X, y)
+    clf = CatBoostClf()
+    clf.train_test(X_train, y_train, X_test, y_test)
 
-    saved_model = bentoml.sklearn.save_model("iris_clf", clf)
+    saved_model = bentoml.catboost.save_model("hotel_reservation_clf", clf.model)
 
     print(f"Model saved: {saved_model}")
 
 if __name__ == "__main__":
-    train()
+    save_serve_model()
