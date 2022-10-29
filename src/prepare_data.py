@@ -5,12 +5,12 @@ from sklearn.model_selection import train_test_split
 
 class Preprocess:
     @staticmethod
-    def get_data():
+    def get_data() -> pd.DataFrame:
         df = pd.read_csv(os.getenv("DATASET_URL", ""))
         return df
 
     @staticmethod
-    def preprocess_data(df):
+    def preprocess_data(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
         # dropping columns that are not useful
         useless_col = ['days_in_waiting_list', 'arrival_date_year', 'arrival_date_year', 'assigned_room_type', 'booking_changes',
                     'reservation_status', 'country', 'days_in_waiting_list']
@@ -56,12 +56,12 @@ class Preprocess:
         return X, y
 
     @staticmethod
-    def split_train_test(X, y):
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.30)
+    def split_train_test(X: pd.DataFrame, y: pd.Series) -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=float(os.environ.get('TEST_SIZE')))
         return X_train, X_test, y_train, y_test
 
     @staticmethod
-    def perform():
+    def perform() -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         df = Preprocess.get_data()
         X, y = Preprocess.preprocess_data(df)
         X_train, X_test, y_train, y_test = Preprocess.split_train_test(X, y)

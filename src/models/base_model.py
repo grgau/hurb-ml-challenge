@@ -1,3 +1,4 @@
+import os
 import time
 from sklearn.metrics import accuracy_score, recall_score, precision_score
 
@@ -7,6 +8,8 @@ class BaseModel:
         self.artifact = artifact
         self.run_name = f'{self.artifact}_{str(int(time.time() * 1000))}'
 
+        self.test_size = os.environ.get('TEST_SIZE')
+
         self.train_accuracy = None
         self.test_accuracy = None
         self.train_recall = None
@@ -14,7 +17,7 @@ class BaseModel:
         self.train_precision = None
         self.test_precision = None
 
-    def train_test(self, X_train, y_train, X_test, y_test, log_to_mlflow: bool = True):
+    def train_test(self, X_train, y_train, X_test, y_test, log_to_mlflow: bool = True) -> None:
         self.model.fit(X_train, y_train)
 
         y_train_pred = self.model.predict(X_train)
@@ -32,5 +35,5 @@ class BaseModel:
         if log_to_mlflow:
             self.log_model()
 
-    def log_model(self):
+    def log_model(self) -> None:
         raise NotImplementedError("log_model method needs to be implemented on the child class!")

@@ -9,7 +9,7 @@ hotel_reservation_clf_runner = bentoml.catboost.get("hotel_reservation_clf:lates
 svc = bentoml.Service("hotel_reservation_classifier", runners=[hotel_reservation_clf_runner])
 
 @svc.api(input=JSON(), output=JSON())
-def classify(input_series: np.ndarray) -> np.ndarray:
+def classify(input_series: np.ndarray) -> dict:
     try:
         X, _ = Preprocess.preprocess_data(pd.json_normalize(input_series))
         result = hotel_reservation_clf_runner.predict.run(X)
